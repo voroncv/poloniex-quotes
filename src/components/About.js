@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, StatusBar } from 'react-native';
 
+import Navigation from './layouts/Navigation';
+
 type Props = {};
 export default class About extends Component<Props> {
     constructor(props: Object) {
@@ -25,6 +27,10 @@ export default class About extends Component<Props> {
         this.props.navigation.navigate('Quotes');
     }
 
+    changePage(e) {
+        this.props.navigation.navigate(e);
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -45,6 +51,10 @@ export default class About extends Component<Props> {
                         Перейти к котировкам
                     </Text>
                 </TouchableOpacity>
+                <Navigation
+                    changePage={this.changePage.bind(this)}
+                    activePage="About"
+                />
             </View>
         );
     }

@@ -33,7 +33,9 @@ export default class QuotesList extends Component<Props> {
                     <Text style={styles.tableCell}>Highest Bid</Text>
                     <Text style={styles.tableCell}>Change</Text>
                 </View>
-                <ScrollView>
+                <ScrollView
+                    contentContainerStyle={{paddingBottom: 60}}
+                >
                     {quotes}
                 </ScrollView>
             </View>
