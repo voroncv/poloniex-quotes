@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, StatusBar, View } from 'react-native';
-import TimerMixin from 'react-timer-mixin';
 import { observer, inject } from "mobx-react";
 
 import QuotesList from './layouts/QuotesList';
@@ -31,7 +30,7 @@ export default @inject("quotesStore") @observer class Quotes extends Component<P
     };
 
     componentDidMount() {
-        this.props.quotesStore.getQuotes(true);
+        this.props.quotesStore.getQuotes();
     }
 
     changePage(e) {

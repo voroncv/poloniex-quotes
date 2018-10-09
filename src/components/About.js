@@ -33,21 +33,29 @@ export default class About extends Component<Props> {
 
     render() {
         return (
-            <View style={styles.container}>
-                <StatusBar barStyle='light-content' />
+            <View
+                style={styles.container}
+            >
+                <StatusBar
+                    barStyle='light-content'
+                />
                 <Image
                     style={{width: '80%', height: 200}}
                     source={require('../images/logo.png')}
                     resizeMode='contain'
                 />
-                <Text style={styles.about}>
+                <Text
+                    style={styles.about}
+                >
                     PoloniexQuotes - котировки с криптовалютной биржи Poloniex
                 </Text>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={this.openQuotesPage.bind(this)}
                 >
-                    <Text style={styles.button_text}>
+                    <Text
+                        style={styles.button_text}
+                    >
                         Перейти к котировкам
                     </Text>
                 </TouchableOpacity>
