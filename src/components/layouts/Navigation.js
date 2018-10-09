@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import isIphoneX from '../../config/isIphoneX';
 
 type Props = {};
 export default class Navigation extends Component<Props> {
@@ -54,7 +55,7 @@ export default class Navigation extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 60,
+        height: isIphoneX === true ? 94 : 60,
         position: 'absolute',
         bottom: 0,
         flexDirection: 'row',

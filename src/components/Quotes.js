@@ -62,36 +62,6 @@ export default class Quotes extends Component<Props> {
             isLoader: false,
             quotes: quotesList
         });
-
-        //return this.updateQuotesList();
-    }
-
-    async updateQuotesList() {
-        const params = {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        }
-
-        const response = await fetch(`https://poloniex.com/public?command=returnTicker`, params);
-
-        if (!response) {
-            throw response
-        }
-
-        const responseJson = await response.json();
-
-        let quotesList = Object.entries(responseJson);
-
-        this.setState({
-            quotes: quotesList
-        });
-
-        this.interval = setInterval(() => {
-            this.updateQuotesList();
-        }, 5000);
     }
 
     changePage(e) {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Dimensions, ActivityIndicator, ScrollView } from 'react-native';
+import isIphoneX from '../../config/isIphoneX';
 
 const width = Dimensions.get('window').width;
 
@@ -34,7 +35,7 @@ export default class QuotesList extends Component<Props> {
                     <Text style={styles.tableCell}>Change</Text>
                 </View>
                 <ScrollView
-                    contentContainerStyle={{paddingBottom: 60}}
+                    contentInset={{bottom: isIphoneX === true ? 94 : 60}}
                 >
                     {quotes}
                 </ScrollView>

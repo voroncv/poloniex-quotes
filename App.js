@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
 
+import { Provider } from "mobx-react";
+import stores from "./src/store";
+
 import About from './src/components/About';
 import Quotes from './src/components/Quotes';
 
@@ -24,7 +27,9 @@ type Props = {};
 export default class App extends Component<Props> {
     render() {
         return (
-            <RootStack />
+            <Provider>
+                <RootStack />
+            </Provider>
         );
     }
 }
