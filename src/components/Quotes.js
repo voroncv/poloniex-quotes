@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet, StatusBar, View, Alert } from 'react-native';
+import { StyleSheet, StatusBar, View } from 'react-native';
 import TimerMixin from 'react-timer-mixin';
+import { observer, inject } from "mobx-react";
 
 import QuotesList from './layouts/QuotesList';
 import Spinner from './layouts/Spinner';
 import Navigation from './layouts/Navigation';
+import ErrorData from './layouts/ErrorData';
 
 type Props = {};
-export default class Quotes extends Component<Props> {
+export default @inject("quotesStore") @observer class Quotes extends Component<Props> {
     constructor(props: Object) {
         super(props);
-        this.state = {
-            quotes: [],
-            isLoader: false,
-        };
+        this.state = {};
     }
 
     static navigationOptions = ({navigation}) => {
@@ -32,36 +31,7 @@ export default class Quotes extends Component<Props> {
     };
 
     componentDidMount() {
-        this.getQuotesList();
-    }
-
-    async getQuotesList() {
-        this.setState({
-            isLoader: true,
-        });
-
-        const params = {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        }
-
-        const response = await fetch(`https://poloniex.com/public?command=returnTicker`, params);
-
-        if (!response) {
-            throw response
-        }
-
-        const responseJson = await response.json();
-
-        let quotesList = Object.entries(responseJson);
-
-        this.setState({
-            isLoader: false,
-            quotes: quotesList
-        });
+        this.props.quotesStore.getQuotes(true);
     }
 
     changePage(e) {
@@ -69,18 +39,29 @@ export default class Quotes extends Component<Props> {
     }
 
     render() {
-        if (this.state.isLoader) {
+        if (this.props.quotesStore.isLoader) {
             return (
-                <View style={styles.container}>
-                    <StatusBar barStyle='light-content' />
+                <View
+                    style={styles.container}
+                >
+                    <StatusBar
+                        barStyle='light-content'
+                    />
                     <Spinner />
                 </View>
             );
         }
         return (
-            <View style={styles.container}>
-                <StatusBar barStyle='light-content' />
-                <QuotesList data={this.state.quotes} />
+            <View
+                style={styles.container}
+            >
+                <StatusBar
+                    barStyle='light-content'
+                />
+                { this.props.quotesStore.isError && <ErrorData /> }
+                <QuotesList
+                    data={this.props.quotesStore.quotesList}
+                />
                 <Navigation
                     changePage={this.changePage.bind(this)}
                     activePage="Quotes"

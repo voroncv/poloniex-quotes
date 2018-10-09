@@ -4,6 +4,11 @@ import isIphoneX from '../../config/isIphoneX';
 
 const width = Dimensions.get('window').width;
 
+function wp (percentage) {
+    const value = (percentage * width) / 100;
+    return Math.round(value);
+}
+
 type Props = {};
 export default class QuotesList extends Component<Props> {
     constructor(props: Object) {
@@ -18,10 +23,10 @@ export default class QuotesList extends Component<Props> {
             let isPlusPercent = Number(el[1].percentChange) > 0 ? '+' : null;
             return (
                 <View style={styles.tableBody} key={i}>
-                    <Text style={styles.tableCell}>{el[0]}</Text>
-                    <Text style={styles.tableCell}>{el[1].last}</Text>
-                    <Text style={styles.tableCell}>{el[1].highestBid}</Text>
-                    <Text style={[styles.tableCell, percentColor]}>{isPlusPercent}{percent}%</Text>
+                    <Text style={[styles.tableCell, styles.tableBodyText]}>{el[0]}</Text>
+                    <Text style={[styles.tableCell, styles.tableBodyText]}>{el[1].last}</Text>
+                    <Text style={[styles.tableCell, styles.tableBodyText]}>{el[1].highestBid}</Text>
+                    <Text style={[styles.tableCell, percentColor, styles.tableBodyText]}>{isPlusPercent}{percent}%</Text>
                 </View>
             )
         }, this);
@@ -29,10 +34,10 @@ export default class QuotesList extends Component<Props> {
         return (
             <View>
                 <View style={styles.tableHeader}>
-                    <Text style={styles.tableCell}>Pair</Text>
-                    <Text style={styles.tableCell}>Last</Text>
-                    <Text style={styles.tableCell}>Highest Bid</Text>
-                    <Text style={styles.tableCell}>Change</Text>
+                    <Text style={[styles.tableCell, styles.textCenter]}>Pair</Text>
+                    <Text style={[styles.tableCell, styles.textCenter]}>Last</Text>
+                    <Text style={[styles.tableCell, styles.textCenter]}>Highest Bid</Text>
+                    <Text style={[styles.tableCell, styles.textCenter]}>Change</Text>
                 </View>
                 <ScrollView
                     contentInset={{bottom: isIphoneX === true ? 94 : 60}}
@@ -69,4 +74,10 @@ const styles = StyleSheet.create({
     tableCell: {
         width: width/4
     },
+    textCenter: {
+        textAlign: 'center',
+    },
+    tableBodyText: {
+        fontSize: wp(3.5)
+    }
 });
