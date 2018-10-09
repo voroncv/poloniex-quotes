@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ActivityIndicator, ScrollView } from 'react-native';
 
 const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
 
 type Props = {};
 export default class QuotesList extends Component<Props> {
@@ -12,26 +11,31 @@ export default class QuotesList extends Component<Props> {
     }
 
     render() {
+        let quotes = this.props.data.map(function (el, i) {
+            let percentColor = el[1].percentChange < 0 ? { color: 'red' } : { color: 'green' };
+            let percent = Number(el[1].percentChange).toFixed(4);
+            let isPlusPercent = Number(el[1].percentChange) > 0 ? '+' : null;
+            return (
+                <View style={styles.tableBody} key={i}>
+                    <Text style={styles.tableCell}>{el[0]}</Text>
+                    <Text style={styles.tableCell}>{el[1].last}</Text>
+                    <Text style={styles.tableCell}>{el[1].highestBid}</Text>
+                    <Text style={[styles.tableCell, percentColor]}>{isPlusPercent}{percent}%</Text>
+                </View>
+            )
+        }, this);
+
         return (
             <View>
                 <View style={styles.tableHeader}>
-                    <Text>Name</Text>
-                    <Text>Last</Text>
-                    <Text>Highest Bid</Text>
-                    <Text>Change</Text>
+                    <Text style={styles.tableCell}>Pair</Text>
+                    <Text style={styles.tableCell}>Last</Text>
+                    <Text style={styles.tableCell}>Highest Bid</Text>
+                    <Text style={styles.tableCell}>Change</Text>
                 </View>
-                <View style={styles.tableBody}>
-                    <Text>ETH</Text>
-                    <Text>0.1</Text>
-                    <Text>542.34</Text>
-                    <Text style={styles.greenChange}>+1.67%</Text>
-                </View>
-                <View style={styles.tableBody}>
-                    <Text>ADA</Text>
-                    <Text>0.0021</Text>
-                    <Text>2542.34</Text>
-                    <Text style={styles.redChange}>-10.47%</Text>
-                </View>
+                <ScrollView>
+                    {quotes}
+                </ScrollView>
             </View>
         );
     }
@@ -59,10 +63,7 @@ const styles = StyleSheet.create({
         borderLeftColor: 'transparent',
         borderRightColor: 'transparent',
     },
-    greenChange: {
-        color: 'green',
+    tableCell: {
+        width: width/4
     },
-    redChange: {
-        color: 'red',
-    }
 });

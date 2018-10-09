@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, StatusBar } from 'react-native';
 
 type Props = {};
 export default class About extends Component<Props> {
@@ -12,8 +12,11 @@ export default class About extends Component<Props> {
         return {
             title: 'О приложении',
             headerStyle: {
-                backgroundColor: '#b2d5d6',
+                backgroundColor: '#006971',
                 borderBottomWidth: 0,
+            },
+            headerTitleStyle: {
+                color: '#FFFFFF'
             },
         };
     };
@@ -25,6 +28,7 @@ export default class About extends Component<Props> {
     render() {
         return (
             <View style={styles.container}>
+                <StatusBar barStyle='light-content' />
                 <Image
                     style={{width: '80%', height: 200}}
                     source={require('../images/logo.png')}
